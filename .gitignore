@@ -26,3 +26,8 @@
 *.exe
 *.out
 *.app
+Kut_tt_reader_131/Debug/
+*.suo
+*.ilk
+Debug/
+Kut_tt_reader_131.VC.db
