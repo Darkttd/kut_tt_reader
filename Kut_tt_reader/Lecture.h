@@ -46,49 +46,6 @@ const int tt_inf[TI_COUNT] = {t01A, t01B, t02A, t02B, t03A, t03B, t04A, t04B, t0
 								t06A, t06B, t07A, t07B, t08A, t08B, t09A, t09B, t10A, t10B,
 								t11A, t11B, t12A, t12B, tovr_12};
 
-/*
-#define MAJOR_COUNT 21	// 전공 갯수
-
-#define car_eng 0		// 자에
-#define com_prat 1		// 컴응
-#define inf_tech 2		// IT
-#define prod_sys 3		// 생시
-#define dig_sys 4		// 디시
-#define	con_sys 5		// 제전
-#define	electron 6		// 전기
-#define	elrock 7 		// 전자
-#define	el_tele 8		// 정통
-#define	com_tech 9		// 컴공
-#define	multi_media 10	// 멀티
-#define	intern_soft 11	// 인터
-#define	inf_protect 12	// 정호
-#define	design_tech 13	// 디공
-#define	construct_tech 14	// 축공
-#define	construct_edu 15	// 축학
-#define	chemi_eng 16	// 응공
-#define	new_metrial 17	// 신공
-#define	hum_man 18		// 인력
-#define	tech_man 19		// 기술
-#define	e_bz 20			// e비즈
-
-
-const WCHAR MajorName[MAJOR_COUNT][5] = {L"자에", L"컴응", L"IT", L"생시", L"디시", L"제전", 
-							L"전기", L"전자",
-							L"정통", L"컴공", L"멀티", L"인터", L"정호", L"디공", L"축공", L"축학",
-							L"응공", L"신공", L"인력", L"기술", L"eBiz"};
-*/
-
-// 2010년 1학기부터 바뀐 신 전공에 맞춰 수정
-/*
-const WCHAR MajorName[MAJOR_COUNT][5] = {L"자에", L"컴응", L"IT응", L"생시", L"디시", L"제전", 
-							L"전기", L"전자", L"정통",
-							L"컴공", L"인미", L"멀티", L"인터", L"정호", L"컴HW", L"컴SW", L"컴시",
-                            L"전기", L"전자", L"정통", L"컴공",
-                            L"신공", L"응화", L"에너", 
-							L"디자", L"축공", L"축학",
-							L"응공", L"인력", L"기술", L"eBiz"};									
-*/
-
 //2013년도 1학기용으로 2012년 12월 17일 오후 10시 기준 공지사항에 올라온 xls 파일 기준
 
 #define MAJOR_COUNT 30
@@ -155,20 +112,9 @@ const WCHAR CTName[CT_COUNT][13] = {L"(null)", L"전문교양핵심", L"전문교양일반",
 								L"학과(전공)핵심", L"학과(전공)일반", L"(null)", L"자유선택",
 								L"MSC핵심", L"MSC일반"};
 
-//#define DEP_COUNT	10
-//#define YEAR_COUNT	48
 #define DAY_COUNT	6
 #define TT_COUNT	15
-/*
-//									전체  건축  기정  디공  데카  산경  신소  응화  인미  정보
-const char dep_inf[DEP_COUNT][3] = {"전", "건", "기", "디", "메", "산", "신", "응", "인", "정"};
-const char year_inf[YEAR_COUNT][3] = {"전", "", "", "", "", "", "", "", 
-							"1A", "1B", "1C", "1D", "1E", "", "", "1\t",
-							"2A", "2B", "2C", "2D", "", "", "", "2\t",
-							"3A", "3B", "3C", "3D", "", "", "", "3\t",
-							"4A", "4B", "4C", "4D", "", "", "", "4\t",
-							"",   "",   "",   "",   "", "", "", "5\t"};
-*/
+
 const wchar_t day_inf[DAY_COUNT][2] = {L"월", L"화", L"수", L"목", L"금", L"토"};
 
 class LECTURE;
@@ -214,8 +160,6 @@ public:
 			delete next;
 	}
 	int Open_Lecture(const wchar_t* const Filename, LECTURE* Lecture);
-
-//	friend ostream& operator<< (ostream& os, const LECTURE &lt);
 };
 
 
@@ -247,8 +191,6 @@ public:
 	int AddLecture(LECTURE *lc);	// 중복되는 시간이 있으면 0, 없으면 추가하고 1을 리턴
 	int CheckLecture(LECTURE *lc);	// 코드가 일치하는 것이 있으면 1, 없으면 0을 리턴
 	void DelLecture(LECTURE *lc);	// lc 와 같은 것이 있으면 제거
-//	int GetTTA() {return Lecture->time_info[0];};
-//	int GetTTB() {return Lecture->time_info[1];};
 	LECTURE* GetLecture();
 	MyLecture* GetNext();
 };

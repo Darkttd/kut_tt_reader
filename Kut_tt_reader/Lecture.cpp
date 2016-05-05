@@ -4,7 +4,6 @@ using namespace std;
 #include "Lecture.h"
 #include <cstring>
 #include <locale>
-//#include <iomanip>
 
 #pragma warning(disable:4996)
 
@@ -41,7 +40,6 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
 	if(!fin.is_open())
 		return false;
 	fin.imbue(locale("kor"));
-//	Lecture = new LECTURE();
 	Loop_Lecture = Lecture;
 
 	do
@@ -207,7 +205,6 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
 
 		if(ch == L'"')
 			fin.get(ch);	// tab remover
-//		i = -1;
 
 		// 담당교수
 		temp = new wchar_t[20];
@@ -250,7 +247,6 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
                 continue;
 			if(ch != L'\n')
 			{
-//				fin.get(ch2);
 				fin.get(dummy);
 
 				for(j = 0; j < DAY_COUNT; j++)
@@ -345,31 +341,6 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
 	return true;
 }
 
-
-/*
-ostream& operator<< (ostream& os, const LECTURE &lt)
-{
-	os << "CODE" << '\t' << "개설강좌" << '\n';
-	const LECTURE *temp;
-	temp = &lt;
-
-	do
-	{
-		os <<temp->code << '\t' <<  setw(30) << temp->name << '\t'
-			<< temp->pou_srt << '\t' << temp->div_class << '\t' << temp->teacher << '\n';
-
-		if(temp->next != NULL)
-			temp = temp->next;
-		else
-			break;
-
-		if(temp->valid == 0)
-			break;
-	}while(1);
-
-	return os;
-}
-//*/
 
 int SameList::AddList(wchar_t cd[7])
 {

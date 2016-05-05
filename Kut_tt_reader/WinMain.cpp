@@ -19,7 +19,6 @@ void WM_Command(HWND hWnd, WPARAM wParam);
 
 #define PAINT_WINDOW_MODE	1
 #define PAINT_PRINT_MODE	2
-//#define LC_PAINT_DIV_MODE	3
 
 HWND MainhWnd;
 
@@ -99,14 +98,10 @@ wchar_t Searching_Prof_str[10];
 
 #define TT_X_START_W	625	// 윈도우용 x시작좌표
 #define TT_Y_START_W	10	// 윈도우용 y시작좌표
-//#define TT_X_START_P	150	// 프린터용 x시작좌표
-//#define TT_Y_START_P	250	// 프린터용 y시작좌표
 int TT_X_START_P;
 int TT_Y_START_P;
 #define TT_X_CLM_W		63	// 윈도우용 x칸픽셀
 #define TT_Y_CLM_W		20	// 윈도우용 y칸픽셀
-//#define TT_X_CLM_P		300	// 프린터용 x칸픽셀
-//#define TT_Y_CLM_P		100	// 프린터용 y칸픽셀
 int TT_X_CLM_P;
 int TT_Y_CLM_P;
 
@@ -117,7 +112,6 @@ int Score = 0;
 WNDPROC OldEditProc;
 WNDPROC OldEditProc2;
 WNDPROC OldEditProc3;
-//WNDPROC OldEditProc_Else[13];
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					 LPSTR IpszCmdParam, int nCmdShow)
@@ -131,18 +125,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	WndClass.cbWndExtra = 0;
 	WndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-//	WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	WndClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
 	WndClass.hInstance = hInstance;
 	WndClass.lpfnWndProc = (WNDPROC)WndProc;
 	WndClass.lpszClassName = IpszClass;
 	WndClass.lpszMenuName = NULL;
-//	WndClass.style = CS_HREDRAW | CS_VREDRAW;
 	WndClass.style = 0;
 	RegisterClass(&WndClass);
 
 	hWnd = CreateWindow(IpszClass, IpszClass, WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX
-						, CW_USEDEFAULT, CW_USEDEFAULT, 1080, 620,
+						, CW_USEDEFAULT, CW_USEDEFAULT, 1100, 620,
 						NULL, (HMENU)NULL, hInstance, NULL);
 
 	MainhWnd = hWnd;
@@ -241,163 +233,6 @@ LRESULT CALLBACK EditSubProc3(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lPara
 	return CallWindowProc(OldEditProc2,hWnd,iMessage,wParam,lParam);
 }
 
-/*
-LRESULT CALLBACK EditSubProc_Else0(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[0],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else1(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-
-	case WM_ERASEBKGND:
-		{
-			HDC hdc;
-			HPEN oldpen, mypen;
-			hdc = (HDC)wParam;
-
-			mypen = (HPEN)GetStockObject(NULL_PEN);
-			oldpen = (HPEN)SelectObject(hdc, mypen);
-
-			Rectangle(hdc, 0, 0, 150, 200);
-
-			SelectObject(hdc, oldpen);
-		}
-
-		return true;
-
-//	case WM_ERASEBKGND:
-//		return false;
-
-//	case WM_MOUSEWHEEL:
-//		InvalidateRect(hWnd, NULL, FALSE);
-//		break;
-
-	case WM_PAINT:
-		{
-			HDC hdc;
-			HPEN oldpen, mypen;
-			hdc = GetDC(hWnd);
-			
-			mypen = (HPEN)GetStockObject(NULL_PEN);
-			oldpen = (HPEN)SelectObject(hdc, mypen);
-
-			Rectangle(hdc, 0, 0, 150, 200);
-
-			SelectObject(hdc, oldpen);
-			ReleaseDC(hWnd, hdc);
-		}
-		break;
-
-	}
-	return CallWindowProc(OldEditProc_Else[1],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else2(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[2],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else3(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[3],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else4(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[4],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else5(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[5],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else6(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[6],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else7(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[7],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else8(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[8],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else9(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[9],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else10(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[10],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else11(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[11],hWnd,iMessage,wParam,lParam);
-}
-
-LRESULT CALLBACK EditSubProc_Else12(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
-{
-	switch (iMessage) {
-	case WM_ERASEBKGND:
-		return false;
-	}
-	return CallWindowProc(OldEditProc_Else[12],hWnd,iMessage,wParam,lParam);
-}
-*/
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
 	switch(iMessage)
@@ -456,18 +291,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
             , L"시간표 제작 도우미", MB_OK);
 		return 0;
 
-//	case WM_ERASEBKGND:
-//		return true;
-
 	case WM_PAINT:
 		{
-/*
-			HDC hdc;
-			PAINTSTRUCT ps;
-			hdc = BeginPaint(hWnd, &ps);
-			WM_Paint(hdc, TT_X_START_W, TT_Y_START_W, PAINT_WINDOW_MODE);
-			EndPaint(hWnd, &ps);
-*/
 			HDC hdc, hMemDC;
 			HBITMAP OldBit;
 			PAINTSTRUCT ps;
@@ -477,7 +302,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			GetClientRect(hWnd,&crt);
 			hMemDC=CreateCompatibleDC(hdc);
 			OldBit=(HBITMAP)SelectObject(hMemDC, hBit);
-//			BitBlt(hdc,0,0,crt.right,crt.bottom,hMemDC,0,0,SRCCOPY);
 			BitBlt(hdc,170, 50, 300, 85, hMemDC, 170, 50, SRCCOPY);
 			BitBlt(hdc,TT_X_START_W,0,crt.right,531,hMemDC,TT_X_START_W,0,SRCCOPY);
 			SelectObject(hMemDC, OldBit);
@@ -513,8 +337,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			ReleaseDC(hWnd,hdc);
 		
 			InvalidateRect(hWnd, NULL, FALSE);
-//			crt.left = TT_X_START_W;
-//			InvalidateRect(hWnd, &crt, FALSE);
 		}
 		break;
 
@@ -603,29 +425,10 @@ void WM_Create(HWND hWnd)
 	OldEditProc=(WNDPROC)SetWindowLong(hEdit_Search,GWL_WNDPROC,(LONG)EditSubProc);
 	OldEditProc2=(WNDPROC)SetWindowLong(hEdit_Name_Search,GWL_WNDPROC,(LONG)EditSubProc2);
 	OldEditProc3=(WNDPROC)SetWindowLong(hEdit_Prof_Search,GWL_WNDPROC,(LONG)EditSubProc3);
-
-/*
-	OldEditProc_Else[0] = (WNDPROC)SetWindowLong(hCombo_Major, GWL_WNDPROC, (LONG)EditSubProc_Else0);
-	OldEditProc_Else[1] = (WNDPROC)SetWindowLong(hList_CT, GWL_WNDPROC, (LONG)EditSubProc_Else1);
-	OldEditProc_Else[2] = (WNDPROC)SetWindowLong(hList_Lecture, GWL_WNDPROC, (LONG)EditSubProc_Else2);
-	OldEditProc_Else[3] = (WNDPROC)SetWindowLong(hList_DivCls, GWL_WNDPROC, (LONG)EditSubProc_Else3);
-	OldEditProc_Else[4] = (WNDPROC)SetWindowLong(hButton_CMD, GWL_WNDPROC, (LONG)EditSubProc_Else4);
-	OldEditProc_Else[5] = (WNDPROC)SetWindowLong(hList_Selected, GWL_WNDPROC, (LONG)EditSubProc_Else5);
-	OldEditProc_Else[6] = (WNDPROC)SetWindowLong(hButton_DelCMD, GWL_WNDPROC, (LONG)EditSubProc_Else6);
-	OldEditProc_Else[7] = (WNDPROC)SetWindowLong(hButton_Load, GWL_WNDPROC, (LONG)EditSubProc_Else7);
-	OldEditProc_Else[8] = (WNDPROC)SetWindowLong(hButton_Save, GWL_WNDPROC, (LONG)EditSubProc_Else8);
-	OldEditProc_Else[9] = (WNDPROC)SetWindowLong(hButton_Print, GWL_WNDPROC, (LONG)EditSubProc_Else9);
-	OldEditProc_Else[10] = (WNDPROC)SetWindowLong(hButton_Init, GWL_WNDPROC, (LONG)EditSubProc_Else10);
-	OldEditProc_Else[11] = (WNDPROC)SetWindowLong(hButton_Search, GWL_WNDPROC, (LONG)EditSubProc_Else11);
-	OldEditProc_Else[12] = (WNDPROC)SetWindowLong(hButton_Name_Search, GWL_WNDPROC, (LONG)EditSubProc_Else12);
-*/
-
 }
 
 void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 {
-//	HDC hdc;
-//	PAINTSTRUCT ps;
 	HPEN pen, def_pen;
 	HFONT font, def_font;
 	HBRUSH brush, def_brush;
@@ -650,8 +453,6 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 		MessageBox(MainhWnd, L"Invalid Paint Mode!", L"Error", MB_OK);
 		return;
 	}
-
-//	hdc = BeginPaint(hWnd, &ps);
 
 	pen = CreatePen(PS_SOLID, 1, RGB(128, 128, 128));
 	def_pen = (HPEN)SelectObject(hdc, pen);
@@ -742,10 +543,6 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 		rc.bottom = TT_Y_START;
 	}
 
-	//if((Selected_Major >= 18 && Score > 21) || Score > 22)	// Selected_Major >= 18 조건은 산경을 위한 예외조건
-	//	SetTextColor(hdc, RGB(255,0,0));
-	//else if((Selected_Major >= 18 && Score == 21) || Score == 22)
-	//	SetTextColor(hdc, RGB(196, 196, 0));
     if(Score > 22)
         SetTextColor(hdc, RGB(255, 0, 0));
     else if(Score == 22)
@@ -984,8 +781,6 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 
 	SelectObject(hdc, def_font);
 	DeleteObject(font);
-
-//	EndPaint(hWnd, &ps);
 }
 
 void Show_Lecture(HDC hdc, LECTURE* lc, const int TT_X_START, const int TT_Y_START, int mode)
@@ -1142,7 +937,6 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 			while(SendMessage(hList_CT, LB_DELETESTRING, 0, 0) > 0);
 			while(SendMessage(hList_Lecture, LB_DELETESTRING, 0, 0) > 0);
 			while(SendMessage(hList_DivCls, LB_DELETESTRING, 0, 0) > 0);
-//			CMD_State = CMDST_UNDEF;
 			Selected = NULL;
 			Selected_Mode = SL_MODE_UNDEF;
 			Searching_Prof = NORMAL_MODE;
@@ -1150,8 +944,6 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 			Selected_Major=SendMessage(hCombo_Major, CB_GETCURSEL,0,0);
 			for (i = 0; i < CT_COUNT; i++)
 			{
-//				if(i == CT_norm_dummy)
-//					continue;
 				SendMessage(hList_CT, LB_ADDSTRING, 0, (LPARAM)CTName[i]);
 			}
 			break;
@@ -1163,7 +955,6 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 		case LBN_SELCHANGE:
 			while(SendMessage(hList_Lecture, LB_DELETESTRING, 0, 0) > 0);
 			while(SendMessage(hList_DivCls, LB_DELETESTRING, 0, 0) > 0);
-//			CMD_State = CMDST_UNDEF;
 			Selected = NULL;
 			Selected_Mode = SL_MODE_UNDEF;
 			Selected_Lecture = -1;
@@ -1193,19 +984,12 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 					if(List->AddList(link->code) == 1)
 					{
 						temp = new wchar_t[40];
-//						temp2 = new wchar_t[5];
 						wcscpy(temp, link->code);
 						wcscat(temp, L" ");
-//						temp2[0] = link->div_class / 10 + '0';
-//						temp2[1] = link->div_class % 10 + '0';
-//						temp2[2] = '\0';
-//						wcscat(temp, temp2);
-//						wcscat(temp, L" ");
 						wcscat(temp, link->name);
 						SendMessage(hList_Lecture, LB_ADDSTRING, 0, (LPARAM)temp);
 
 						delete[] temp;
-//						delete[] temp2;
 					}
 				}
 				link = link->next;
@@ -1242,7 +1026,6 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 	
 			List = new SameList(L"\0");
 	
-//			temp2 = new wchar_t[8];
 			wchar_t* temp2 = new wchar_t[30];
 
 			if(j == 0)
@@ -1275,12 +1058,6 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 					continue;
 				}
 
-	
-//				if(i != 6)
-//				{
-//					link = link->next;
-//					continue;
-//				}
 				if(j == 0)
 					ret = wcsstr(link->code, temp2);
 				else if(j == 1)
@@ -1318,7 +1095,6 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 		{
 		case LBN_SELCHANGE:
 			while(SendMessage(hList_DivCls, LB_DELETESTRING, 0, 0) > 0);
-//			CMD_State = CMDST_UNDEF;
 			Selected = NULL;
 			Selected_Mode = SL_MODE_UNDEF;
 
@@ -1768,8 +1544,6 @@ void Print()
 	DEVMODE *dm;
 	int xpage, ypage;
 	int dpiX, dpiY;
-//	HPEN hPen, OldPen;
-//	HFONT MyFont, OldFont;
 	DOCINFO doc;
 	int Result;
 	wchar_t str[]=L"강의 시간표";
@@ -1796,15 +1570,6 @@ void Print()
 	if (hPrtdc == NULL) 
 		return;
 
-/*
-	// 대화상자를 닫은 후에 강제로 용지 방향을 변경한다.
-	dm=(DEVMODE *)GlobalLock(pd.hDevMode);
-	dm->dmFields=DM_ORIENTATION;
-	dm->dmOrientation=Orient;
-	ResetDC(hPrtdc,dm);
-	GlobalUnlock(pd.hDevMode);
-//*/
-
 	// 인쇄 작업을 시작한다.
 	doc.cbSize=sizeof(DOCINFO);
 	doc.lpszDocName=L"강의 시간표";
@@ -1826,22 +1591,7 @@ void Print()
 	TT_Y_START_P = ypage/30;
 	TT_X_CLM_P = xpage/8;
 	TT_Y_CLM_P = ypage/30;
-/*
-	// 사격형을 그린다.
-	hPen=CreatePen(PS_SOLID,dpiY/10,RGB(0,0,255));
-	OldPen=(HPEN)SelectObject(hPrtdc,hPen);
-	Rectangle(hPrtdc,200,200,xpage-200,ypage-200);
-	DeleteObject(SelectObject(hPrtdc,OldPen));
 
-	// 1인치=1/72포인트. 그러므로 n포인트 크기=n*1/72*dpi가 된다.
-	MyFont=CreateFont(50*dpiY/72,0,0,0,FW_NORMAL, FALSE, FALSE, FALSE,
-		HANGEUL_CHARSET, 3,2,1,VARIABLE_PITCH | FF_ROMAN, L"궁서");
-	OldFont=(HFONT)SelectObject(hPrtdc, MyFont);
-	SetTextAlign(hPrtdc,TA_CENTER);
-	TextOut(hPrtdc,xpage/2,ypage/2,str,wcslen(str));
-	SelectObject(hPrtdc, OldFont);
-	DeleteObject(MyFont);
-*/
 	WM_Paint(hPrtdc, TT_X_START_P, TT_Y_START_P, PAINT_PRINT_MODE);
 
 
