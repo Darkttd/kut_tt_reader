@@ -4,8 +4,6 @@
 using namespace std;
 #include "resource.h"
 
-#pragma warning (disable:4996)	// wcscpy, wcscpw에 대한 경고 제거;;
-
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCWSTR IpszClass = L"2013년 1학기 한국기술교육대 시간표 도우미 v1.0 (예비수강신청용)";
@@ -490,7 +488,8 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 
 	//////////////////////////////////////////////
 	// 1A~12B, 13~ 그리기
-	temp = new wchar_t[4];
+	int tempSize = 4;
+	temp = new wchar_t[tempSize];
 	for(i = 1; i <= 12; i++)
 	{
 		rc.left = TT_X_START+20;
@@ -510,23 +509,24 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 
 	rc.top += TT_Y_CLM;
 	rc.bottom += TT_Y_CLM;
-	wcscpy(temp, L"13~");
+	wcscpy_s(temp, tempSize, L"13~");
 	DrawText(hdc, temp, 3, &rc, DT_LEFT);
 	delete[] temp;
 
 	///////////////////////////////////////////
 	// 선택학점 표시기
-	temp = new wchar_t[12];
+	tempSize = 12;
+	temp = new wchar_t[tempSize];
 	temp[0] = L'\0';
 	if(mode == PAINT_WINDOW_MODE)
-		wcscpy(temp, L"전체 학점 : ");
+		wcscpy_s(temp, tempSize, L"전체 학점 : ");
 	else
-		wcscpy(temp, L"학점 : ");
+		wcscpy_s(temp, tempSize, L"학점 : ");
 	temp2 = new wchar_t[3];
 	temp2[0] = Score/10 + L'0';
 	temp2[1] = Score%10 + L'0';
 	temp2[2] = L'\0';
-	wcscat(temp, temp2);
+	wcscat_s(temp, tempSize, temp2);
 
 	if(mode == PAINT_WINDOW_MODE)
 	{
@@ -559,11 +559,11 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 
 		if(Selected != NULL && Selected_Mode != SL_MODE_UNDEF)
 		{
-			wcscpy(temp, L"선택한 학점 : ");
+			wcscpy_s(temp, tempSize, L"선택한 학점 : ");
 			temp2[0] = Selected->pou_srt/10 + L'0';
 			temp2[1] = Selected->pou_srt%10 + L'0';
 			temp2[2] = L'\0';
-			wcscat(temp, temp2);
+			wcscat_s(temp, tempSize, temp2);
 
 			DrawText(hdc, temp, 11, &rc, DT_RIGHT);
 		}
@@ -719,8 +719,8 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 
 							if(Searching_Prof == PROF_SEARCH_MODE)
 							{
-								wcscpy(SLNCSearcher->Next->DivCls, link->name);
-								wcscat(SLNCSearcher->Next->DivCls, L"-");
+								wcscpy_s(SLNCSearcher->Next->DivCls, sizeof(SLNCSearcher->Next->DivCls), link->name);
+								wcscat_s(SLNCSearcher->Next->DivCls, sizeof(SLNCSearcher->Next->DivCls), L"-");
 							}
 						}
 
@@ -742,7 +742,7 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 						}
 
 						if(wcsstr(SLNCSearcher->DivCls, temp) == NULL)
-							wcscat(SLNCSearcher->DivCls, temp);
+							wcscat_s(SLNCSearcher->DivCls, sizeof(SLNCSearcher->DivCls), temp);
 						delete[] temp;
 						SLNCSearcher->day = myday;
 						SLNCSearcher->lasttime = mylasttime;
@@ -843,29 +843,30 @@ void Show_Lecture(HDC hdc, LECTURE* lc, const int TT_X_START, const int TT_Y_STA
 
 			SetBkMode(hdc,TRANSPARENT);
 
-			temp = new wchar_t[30];
-			wcscpy(temp, lc->code);
-			wcscat(temp, L"-");
+			int tempSize = 30;
+			temp = new wchar_t[tempSize];
+			wcscpy_s(temp, tempSize, lc->code);
+			wcscat_s(temp, tempSize, L"-");
 			temp2 = new wchar_t[3];
 			temp2[0] = lc->div_class / 10 + L'0';
 			temp2[1] = lc->div_class % 10 + L'0';
 			temp2[2] = L'\0';
-			wcscat(temp, temp2);
+			wcscat_s(temp, tempSize, temp2);
 			DrawText(hdc, temp, 9, &rc, 0);
 			rc.top+= TT_Y_SEPERATED;
 			rc.bottom += TT_Y_SEPERATED;
 			if(lc->target_eng == L'Y')
-				wcscpy(temp, L"*");
+				wcscpy_s(temp, tempSize, L"*");
 			else
-				wcscpy(temp, L"");
-			wcscat(temp, lc->name);
+				wcscpy_s(temp, tempSize, L"");
+			wcscat_s(temp, tempSize, lc->name);
 			DrawText(hdc, temp, wcslen(temp), &rc, 0);
 
 			rc.top += TT_Y_SEPERATED;
 			rc.bottom += TT_Y_SEPERATED;
 
-			wcscpy(temp, L"교수:");
-			wcscat(temp, lc->teacher);
+			wcscpy_s(temp, tempSize, L"교수:");
+			wcscat_s(temp, tempSize, lc->teacher);
 			DrawText(hdc, temp, wcslen(temp), &rc, 0);
 
 			delete[] temp;
@@ -889,26 +890,27 @@ void Show_Lecture(HDC hdc, LECTURE* lc, const int TT_X_START, const int TT_Y_STA
 				Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
 				rc.left++;
 				rc.top++;
-				temp = new wchar_t[30];
-				wcscpy(temp, lc->code);
-				wcscat(temp, L"-");
+				tempSize = 30;
+				temp = new wchar_t[tempSize];
+				wcscpy_s(temp, tempSize, lc->code);
+				wcscat_s(temp, tempSize, L"-");
 				temp2 = new wchar_t[3];
 				temp2[0] = lc->div_class / 10 + '0';
 				temp2[1] = lc->div_class % 10 + '0';
 				temp2[2] = '\0';
-				wcscat(temp, temp2);
+				wcscat_s(temp, tempSize, temp2);
 				DrawText(hdc, temp, 9, &rc, 0);
 
 				rc.top += TT_Y_SEPERATED;
 				rc.bottom += TT_Y_SEPERATED;
-				wcscpy(temp, lc->name);
+				wcscpy_s(temp, tempSize, lc->name);
 				DrawText(hdc, temp, wcslen(temp), &rc, 0);
 
 				rc.top += TT_Y_SEPERATED;
 				rc.bottom += TT_Y_SEPERATED;
 
-				wcscpy(temp, L"교수:");
-				wcscat(temp, lc->teacher);
+				wcscpy_s(temp, tempSize, L"교수:");
+				wcscat_s(temp, tempSize, lc->teacher);
 				DrawText(hdc, temp, wcslen(temp), &rc, 0);
 
 				delete[] temp;
@@ -983,10 +985,11 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 				{
 					if(List->AddList(link->code) == 1)
 					{
-						temp = new wchar_t[40];
-						wcscpy(temp, link->code);
-						wcscat(temp, L" ");
-						wcscat(temp, link->name);
+						int tempSize = 40;
+						temp = new wchar_t[tempSize];
+						wcscpy_s(temp, tempSize, link->code);
+						wcscat_s(temp, tempSize, L" ");
+						wcscat_s(temp, tempSize, link->name);
 						SendMessage(hList_Lecture, LB_ADDSTRING, 0, (LPARAM)temp);
 
 						delete[] temp;
@@ -1047,7 +1050,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 			}
 
 			if(j == 2)
-				wcscpy(Searching_Prof_str, temp2);
+				wcscpy_s(Searching_Prof_str, sizeof(Searching_Prof_str), temp2);
 
 			link = Lecture;
 			while(link != NULL)
@@ -1073,10 +1076,11 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 	
 				if(List->AddList(link->code) == 1)
 				{
-					temp = new wchar_t[40];
-					wcscpy(temp, link->code);
-					wcscat(temp, L" ");
-					wcscat(temp, link->name);
+					int tempSize = 40;
+					temp = new wchar_t[tempSize];
+					wcscpy_s(temp, tempSize, link->code);
+					wcscat_s(temp, tempSize, L" ");
+					wcscat_s(temp, tempSize, link->name);
 					SendMessage(hList_Lecture, LB_ADDSTRING, 0, (LPARAM)temp);
 	
 					delete[] temp;
@@ -1130,7 +1134,8 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 					continue;
 				}
 
-				temp = new wchar_t[150];
+				int tempSize = 150;
+				temp = new wchar_t[tempSize];
 				temp[0] = link->div_class / 10 + '0';
 				temp[1] = link->div_class % 10 + '0';
 				if(link->target_eng == L'Y')
@@ -1145,11 +1150,11 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 					temp[3] = '\0';
 				}
 
-				wcscat(temp, link->target_dep_year);
+				wcscat_s(temp, tempSize, link->target_dep_year);
 
-				wcscat(temp, L" ");
+				wcscat_s(temp, tempSize, L" ");
 
-				wcscat(temp, link->teacher);
+				wcscat_s(temp, tempSize, link->teacher);
 
 				SendMessage(hList_DivCls, LB_ADDSTRING, 0, (LPARAM)temp);
 
@@ -1265,7 +1270,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 				}
 				else
 				{
-					wcscat(str, L".kut");
+					wcscat_s(str, sizeof(str), L".kut");
 				}
 
 				fout.open(str);
@@ -1393,22 +1398,23 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 
 								wchar_t* temp2;
 
-								temp = new wchar_t[100];
+								int tempSize = 100;
+								temp = new wchar_t[tempSize];
 								temp2 = new wchar_t[3];
 
 								temp[0] = L'\0';
-								wcscat(temp, link->code);
-								wcscat(temp, L"-");
+								wcscat_s(temp, tempSize, link->code);
+								wcscat_s(temp, tempSize, L"-");
 								temp2[0] = link->div_class / 10 + '0';
 								temp2[1] = link->div_class % 10 + '0';
 								temp2[2] = L'\0';
-								wcscat(temp, temp2);
+								wcscat_s(temp, tempSize, temp2);
 								if(link->target_eng == L'Y')
-									wcscat(temp, L"*");
-								wcscat(temp, L" ");
-								wcscat(temp, link->teacher);
-								wcscat(temp, L" ");
-								wcscat(temp, link->name);
+									wcscat_s(temp, tempSize, L"*");
+								wcscat_s(temp, tempSize, L" ");
+								wcscat_s(temp, tempSize, link->teacher);
+								wcscat_s(temp, tempSize, L" ");
+								wcscat_s(temp, tempSize, link->name);
 
 								SendMessage(hList_Selected, LB_ADDSTRING, 0, (LPARAM)temp);
 
@@ -1466,47 +1472,50 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 		break;
 
 	case ID_BTN_COMMAND:
-		if(Selected == NULL || Selected_Mode != SL_MODE_NEW)
 		{
-			MessageBox(hWnd, L"먼저 과목과 분반을 선택해 주십시오", L"kut", MB_OK);
-			break;
+			if (Selected == NULL || Selected_Mode != SL_MODE_NEW)
+			{
+				MessageBox(hWnd, L"먼저 과목과 분반을 선택해 주십시오", L"kut", MB_OK);
+				break;
+			}
+			if (SelectedList->CheckLecture(Selected) == 1)
+			{
+				MessageBox(hWnd, L"똑같은 과목을 고르셨습니다", L"kut", MB_OK);
+				break;
+			}
+			if (SelectedList->AddLecture(Selected) == 0)
+			{
+				MessageBox(hWnd, L"시간이 겹치는 과목이 있습니다.", L"kut", MB_OK);
+				break;
+			}
+
+			wchar_t* temp2;
+
+			int tempSize = 100;
+			temp = new wchar_t[tempSize];
+			temp2 = new wchar_t[3];
+
+			temp[0] = L'\0';
+			wcscat_s(temp, tempSize, Selected->code);
+			wcscat_s(temp, tempSize, L"-");
+			temp2[0] = Selected->div_class / 10 + L'0';
+			temp2[1] = Selected->div_class % 10 + L'0';
+			temp2[2] = L'\0';
+			wcscat_s(temp, tempSize, temp2);
+			wcscat_s(temp, tempSize, L" ");
+			wcscat_s(temp, tempSize, Selected->teacher);
+			wcscat_s(temp, tempSize, L" ");
+			wcscat_s(temp, tempSize, Selected->name);
+
+			SendMessage(hList_Selected, LB_ADDSTRING, 0, (LPARAM)temp);
+
+			Score += Selected->pou_srt;
+
+			Selected = NULL;
+			Selected_Mode = SL_MODE_UNDEF;
+			delete[] temp;
+			delete[] temp2;
 		}
-		if(SelectedList->CheckLecture(Selected) == 1)
-		{
-			MessageBox(hWnd, L"똑같은 과목을 고르셨습니다", L"kut", MB_OK);
-			break;
-		}
-		if(SelectedList->AddLecture(Selected) == 0)
-		{
-			MessageBox(hWnd, L"시간이 겹치는 과목이 있습니다.", L"kut", MB_OK);
-			break;
-		}
-
-		wchar_t* temp2;
-
-		temp = new wchar_t[100];
-		temp2 = new wchar_t[3];
-
-		temp[0] = L'\0';
-		wcscat(temp, Selected->code);
-		wcscat(temp, L"-");
-		temp2[0] = Selected->div_class / 10 + L'0';
-		temp2[1] = Selected->div_class % 10 + L'0';
-		temp2[2] = L'\0';
-		wcscat(temp, temp2);
-		wcscat(temp, L" ");
-		wcscat(temp, Selected->teacher);
-		wcscat(temp, L" ");
-		wcscat(temp, Selected->name);
-
-		SendMessage(hList_Selected, LB_ADDSTRING, 0, (LPARAM)temp);
-
-		Score += Selected->pou_srt;
-
-		Selected = NULL;
-		Selected_Mode = SL_MODE_UNDEF;
-		delete[] temp;
-		delete[] temp2;
 
 		break;
 

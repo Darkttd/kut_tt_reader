@@ -5,8 +5,6 @@ using namespace std;
 #include <cstring>
 #include <locale>
 
-#pragma warning(disable:4996)
-
 bool isnumber(wchar_t ch)
 {
 	if(ch >= L'0' && ch <= L'9')
@@ -70,8 +68,9 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
 		}while(ch != L'\t');
 		temp[i] = L'\0';
 
-		Loop_Lecture->name = new wchar_t[wcslen(temp)+1];
-		wcscpy(Loop_Lecture->name, temp);
+		int lectureNameLen = wcslen(temp) + 1;
+		Loop_Lecture->name = new wchar_t[lectureNameLen];
+		wcscpy_s(Loop_Lecture->name, lectureNameLen, temp);
 		Loop_Lecture->name[i] = L'\0';
 
 		delete[] temp;
@@ -197,8 +196,9 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
 		}
 		temp[i] = L'\0';
 
-		Loop_Lecture->target_dep_year = new wchar_t[wcslen(temp)+1];
-		wcscpy(Loop_Lecture->target_dep_year, temp);
+		int targetDepYearLen = wcslen(temp) + 1;
+		Loop_Lecture->target_dep_year = new wchar_t[targetDepYearLen];
+		wcscpy_s(Loop_Lecture->target_dep_year, targetDepYearLen, temp);
 		Loop_Lecture->target_dep_year[i] = L'\0';
 
 		delete[] temp;
@@ -223,8 +223,9 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
 		if(ch == L'"')
 			fin.get(ch);	// tab remover
 
-		Loop_Lecture->teacher = new wchar_t[wcslen(temp)+1];
-		wcscpy(Loop_Lecture->teacher, temp);
+		int teacherNameLen = wcslen(temp) + 1;
+		Loop_Lecture->teacher = new wchar_t[teacherNameLen];
+		wcscpy_s(Loop_Lecture->teacher, teacherNameLen, temp);
 		Loop_Lecture->teacher[i] = L'\0';
 
 		delete[] temp;
@@ -366,7 +367,7 @@ int SameList::AddList(wchar_t cd[7])
 
 SameList::SameList(wchar_t cd[])
 {
-	wcscpy(code, cd);
+	wcscpy_s(code, sizeof(code), cd);
 	next= NULL;
 }
 
@@ -375,7 +376,7 @@ void SameList::GetCode(int n, wchar_t cd[])
 	if(n == 0)
 	{
 		if(next != NULL)
-			wcscpy(cd, next->code);
+			wcscpy_s(cd, 7, next->code);
 		else
 			cd[0] = '\0';
 	}
