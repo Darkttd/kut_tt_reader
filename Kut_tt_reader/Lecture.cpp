@@ -367,7 +367,7 @@ int SameList::AddList(wchar_t cd[7])
 
 SameList::SameList(wchar_t cd[])
 {
-	wcscpy_s(code, sizeof(code), cd);
+	wcscpy_s(code, cd);
 	next= NULL;
 }
 

@@ -719,8 +719,8 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 
 							if(Searching_Prof == PROF_SEARCH_MODE)
 							{
-								wcscpy_s(SLNCSearcher->Next->DivCls, sizeof(SLNCSearcher->Next->DivCls), link->name);
-								wcscat_s(SLNCSearcher->Next->DivCls, sizeof(SLNCSearcher->Next->DivCls), L"-");
+								wcscpy_s(SLNCSearcher->Next->DivCls, link->name);
+								wcscat_s(SLNCSearcher->Next->DivCls, L"-");
 							}
 						}
 
@@ -742,7 +742,7 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 						}
 
 						if(wcsstr(SLNCSearcher->DivCls, temp) == NULL)
-							wcscat_s(SLNCSearcher->DivCls, sizeof(SLNCSearcher->DivCls), temp);
+							wcscat_s(SLNCSearcher->DivCls, temp);
 						delete[] temp;
 						SLNCSearcher->day = myday;
 						SLNCSearcher->lasttime = mylasttime;
@@ -1050,7 +1050,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 			}
 
 			if(j == 2)
-				wcscpy_s(Searching_Prof_str, sizeof(Searching_Prof_str), temp2);
+				wcscpy_s(Searching_Prof_str, temp2);
 
 			link = Lecture;
 			while(link != NULL)
@@ -1270,7 +1270,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 				}
 				else
 				{
-					wcscat_s(str, sizeof(str), L".kut");
+					wcscat_s(str, L".kut");
 				}
 
 				fout.open(str);
