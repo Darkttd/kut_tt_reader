@@ -1586,36 +1586,46 @@ void Print()
 	doc.lpszDatatype=NULL;
 	doc.fwType=0;
 	Result=StartDoc(hPrtdc, &doc);
-	if (Result <= 0) goto end;
-	Result=StartPage(hPrtdc);
-	if (Result <= 0) goto end;
 
-	// 프린터의 해상도를 구한다.
-	dpiX = GetDeviceCaps(hPrtdc, LOGPIXELSX);
-	dpiY = GetDeviceCaps(hPrtdc, LOGPIXELSY);
-	xpage = GetDeviceCaps(hPrtdc, HORZRES);
-	ypage = GetDeviceCaps(hPrtdc, VERTRES);
+	if (Result > 0)
+	{
+		Result = StartPage(hPrtdc);
 
-	TT_X_START_P = xpage/14;
-	TT_Y_START_P = ypage/30;
-	TT_X_CLM_P = xpage/8;
-	TT_Y_CLM_P = ypage/30;
+		if (Result > 0)
+		{
 
-	WM_Paint(hPrtdc, TT_X_START_P, TT_Y_START_P, PAINT_PRINT_MODE);
+			// 프린터의 해상도를 구한다.
+			dpiX = GetDeviceCaps(hPrtdc, LOGPIXELSX);
+			dpiY = GetDeviceCaps(hPrtdc, LOGPIXELSY);
+			xpage = GetDeviceCaps(hPrtdc, HORZRES);
+			ypage = GetDeviceCaps(hPrtdc, VERTRES);
+
+			TT_X_START_P = xpage / 14;
+			TT_Y_START_P = ypage / 30;
+			TT_X_CLM_P = xpage / 8;
+			TT_Y_CLM_P = ypage / 30;
+
+			WM_Paint(hPrtdc, TT_X_START_P, TT_Y_START_P, PAINT_PRINT_MODE);
 
 
-	// 출력을 종료한다.
-	Result=EndPage(hPrtdc);
-	if (Result <= 0) goto end;
+			// 출력을 종료한다.
+			Result = EndPage(hPrtdc);
+			if (Result > 0)
+			{
 
-	// 인쇄 작업을 끝낸다.
-	Result=EndDoc(hPrtdc);
-end:
+				// 인쇄 작업을 끝낸다.
+				Result = EndDoc(hPrtdc);
+			}
+		}
+	}
+
 	if (pd.hDevMode)
 		GlobalFree(pd.hDevMode);
 	if (pd.hDevNames)
 		GlobalFree(pd.hDevNames);
+
 	DeleteDC(hPrtdc);
 	SetCursor(LoadCursor(NULL,IDC_ARROW));
+
 	return;
 }
