@@ -106,6 +106,7 @@ int TT_Y_CLM_P;
 void Print();
 
 int Score = 0;
+bool isDirty = false;
 
 WNDPROC OldEditProc;
 WNDPROC OldEditProc2;
@@ -340,11 +341,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 	case WM_CLOSE:
 		{
-			HRESULT rs = MessageBox(hWnd, L"저장하시겠습니까?", L"kut_tt_reader", MB_YESNOCANCEL);
-			if(rs == IDYES)
-				WM_Command(hWnd, ID_BTN_SAVE);
-			if(rs == IDCANCEL)
-				return 0;
+			if (isDirty)
+			{
+				HRESULT rs = MessageBox(hWnd, L"저장하시겠습니까?", L"kut_tt_reader", MB_YESNOCANCEL);
+				if (rs == IDYES)
+					WM_Command(hWnd, ID_BTN_SAVE);
+				if (rs == IDCANCEL)
+					return 0;
+
+				// 아니오 버튼일 경우, 기본 행동을 합니다.
+			}
+			
+			// 아닐 때는 기본 행동을 합니다.
 		}
 
 	case WM_DESTROY:
@@ -1350,7 +1358,6 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 				{
 					MessageBox(hWnd, L"시간표파일 버젼이 다릅니다!", L"시간표 도우미", MB_OK);
 				}
-
 				else
 				{
 
@@ -1435,6 +1442,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 							break;
 					}
 
+					isDirty = false;
 				}
 
 				fin.close();
@@ -1460,6 +1468,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 		while(SendMessage(hList_Selected, LB_DELETESTRING, 0, 0) > 0);
 
 		Score = 0;
+		isDirty = false;
 
 		Selected = NULL;
 		Selected_Mode = SL_MODE_UNDEF;
@@ -1508,6 +1517,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 			wcscat_s(temp, tempSize, Selected->name);
 
 			SendMessage(hList_Selected, LB_ADDSTRING, 0, (LPARAM)temp);
+			isDirty = true;
 
 			Score += Selected->pou_srt;
 
@@ -1530,6 +1540,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 		SendMessage(hList_Selected, LB_DELETESTRING, SendMessage(hList_Selected, LB_GETCURSEL, 0, 0), 0);
 
 		Score -= Selected->pou_srt;
+		isDirty = true;
 
 		Selected = NULL;
 		Selected_Mode = SL_MODE_UNDEF;
