@@ -114,6 +114,7 @@ const WCHAR CTName[CT_COUNT][13] = {L"(null)", L"전문교양핵심", L"전문교양일반",
 
 #define DAY_COUNT   6
 #define TT_COUNT    15
+#define MAX_TIME_COUNT 9
 
 const wchar_t day_inf[DAY_COUNT][2] = {L"월", L"화", L"수", L"목", L"금", L"토"};
 
@@ -141,7 +142,7 @@ public:
 
     u_srt major[MAJOR_COUNT];// 전공 데이터
 
-    int time_info[3];        // 요일및교시
+    int time_info[MAX_TIME_COUNT];        // 요일및교시
 
     int valid;
 

@@ -232,9 +232,8 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
 
 
         // ½Ã°£Ç¥
-        Loop_Lecture->time_info[0] = 0;
-        Loop_Lecture->time_info[1] = 0;
-        Loop_Lecture->time_info[2] = 0;
+		for (int i = 0; i < MAX_TIME_COUNT; i++)
+			Loop_Lecture->time_info[i] = 0;
 
         while(true)
         {
@@ -445,11 +444,11 @@ MyLecture::~MyLecture()
 
 int Check_TT_Duplicate(LECTURE *a, LECTURE *b)
 {
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < MAX_TIME_COUNT * MAX_TIME_COUNT; i++)
     {
-        if(IS_DAY_VALIED(a->time_info[i / 3] & b->time_info[i % 3]))
+        if(IS_DAY_VALIED(a->time_info[i / MAX_TIME_COUNT] & b->time_info[i % MAX_TIME_COUNT]))
         {
-            if(GET_ONLY_TIME(a->time_info[i / 3] & b->time_info[i % 3]))
+            if(GET_ONLY_TIME(a->time_info[i / MAX_TIME_COUNT] & b->time_info[i % MAX_TIME_COUNT]))
                 return 0;
         }
     }
