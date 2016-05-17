@@ -115,6 +115,7 @@ const WCHAR CTName[CT_COUNT][13] = {L"(null)", L"전문교양핵심", L"전문교양일반",
 #define DAY_COUNT   6
 #define TT_COUNT    15
 #define MAX_TIME_COUNT 9
+#define CODE_LENGTH 7
 
 const wchar_t day_inf[DAY_COUNT][2] = {L"월", L"화", L"수", L"목", L"금", L"토"};
 
@@ -126,7 +127,7 @@ class LECTURE
 {
 //private:
 public:
-    wchar_t code[7];        // 코드
+    wchar_t code[CODE_LENGTH]; // 코드
     wchar_t* name;          // 이름
     u_srt pou_srt;      // 학점
     u_srt lecture;      // 강의
@@ -165,15 +166,15 @@ public:
 class SameList
 {
 private:
-    wchar_t code[7];
+    wchar_t code[CODE_LENGTH];
     SameList* next;
 
     SameList() {next = NULL;};
 public:
-    SameList(wchar_t cd[7]);
+    SameList(wchar_t cd[CODE_LENGTH]);
     ~SameList() {if(next != NULL) delete next;};
-    int AddList(wchar_t cd[7]);    // 이미 있으면 0, 없으면 1을 리턴
-    void GetCode(int n, wchar_t cd[7]);
+    int AddList(wchar_t cd[CODE_LENGTH]);    // 이미 있으면 0, 없으면 1을 리턴
+    void GetCode(int n, wchar_t cd[CODE_LENGTH]);
 };
 
 class MyLecture

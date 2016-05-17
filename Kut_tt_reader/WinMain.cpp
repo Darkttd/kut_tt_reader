@@ -625,7 +625,7 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
     // 빨간 상자 그리기
     if(mode == PAINT_WINDOW_MODE && List != NULL && ((Searching_Prof == PROF_SEARCH_MODE) || (Selected_Mode != SL_MODE_DEL && Selected_Lecture != -1)))
     {
-        wchar_t mycode[7];
+        wchar_t mycode[CODE_LENGTH];
         if(Searching_Prof != PROF_SEARCH_MODE)
             List->GetCode(Selected_Lecture, mycode);
 
@@ -934,7 +934,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
     int i, j = 0;
     LECTURE *link;
     wchar_t *temp;
-    wchar_t mycode[7];
+    wchar_t mycode[CODE_LENGTH];
     wchar_t *ret;
     MyLecture *Iterator;
 
@@ -1124,13 +1124,13 @@ void WM_Command(HWND hWnd, WPARAM wParam)
                     link = link->next;
                     continue;
                 }
-                for(i = 0; i < 7; i++)
+                for(i = 0; i < CODE_LENGTH; i++)
                 {
                     if(mycode[i] != link->code[i])
                         break;
                 }
 
-                if(i != 7)
+                if(i != CODE_LENGTH)
                 {
                     link = link->next;
                     continue;
@@ -1317,7 +1317,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
             TCHAR str[300];
             TCHAR lpstrFile[MAX_PATH]=L"";
             wifstream fin;
-            wchar_t buffer[7];
+            wchar_t buffer[CODE_LENGTH];
             wchar_t ch;
             wchar_t ch2;
             int buf_divcls;

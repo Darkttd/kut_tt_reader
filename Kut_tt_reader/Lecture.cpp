@@ -342,17 +342,17 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
 }
 
 
-int SameList::AddList(wchar_t cd[7])
+int SameList::AddList(wchar_t cd[CODE_LENGTH])
 {
     if(next != NULL)
     {
         int i = 0;
-        for(i = 0; i < 7; i++)
+        for(i = 0; i < CODE_LENGTH; i++)
         {
             if(next->code[i] != cd[i])
                 break;
         }
-        if(i != 7)
+        if(i != CODE_LENGTH)
             return next->AddList(cd);
         else
             return 0;
@@ -375,7 +375,7 @@ void SameList::GetCode(int n, wchar_t cd[])
     if(n == 0)
     {
         if(next != NULL)
-            wcscpy_s(cd, 7, next->code);
+            wcscpy_s(cd, CODE_LENGTH, next->code);
         else
             cd[0] = '\0';
     }
