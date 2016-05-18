@@ -43,7 +43,7 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
     do
     {
         // ÄÚµå
-        for(i = 0; i < 6; i++)
+        for(i = 0; i < BUFFER_LENGTH; i++)
         {
             fin.get(ch);
                 
@@ -51,7 +51,7 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
                 fin.get(ch);
             Loop_Lecture->code[i] = ch;
         }
-        Loop_Lecture->code[6] = L'\0';
+        Loop_Lecture->code[BUFFER_LENGTH] = L'\0';
         fin.get(ch);    // \t remover
 
         temp = new wchar_t[100];

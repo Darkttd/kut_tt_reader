@@ -665,12 +665,12 @@ void WM_Paint(HDC hdc, const int TT_X_START, const int TT_Y_START, int mode)
 
                 if(Searching_Prof != PROF_SEARCH_MODE)
                 {
-                    for(i = 0; i < 6; i++)
+                    for(i = 0; i < BUFFER_LENGTH; i++)
                     {
                         if(mycode[i] != link->code[i])
                             break;
                     }
-                    if( i != 6)
+                    if( i != BUFFER_LENGTH)
                     {
                         link = link->next;
                         continue;
@@ -1190,12 +1190,12 @@ void WM_Command(HWND hWnd, WPARAM wParam)
                     link = link->next;
                     continue;
                 }
-                for(i = 0; i < 6; i++)
+                for(i = 0; i < BUFFER_LENGTH; i++)
                 {
                     if(mycode[i] != link->code[i])
                         break;
                 }
-                if( i != 6)
+                if( i != BUFFER_LENGTH)
                 {
                     link = link->next;
                     continue;
@@ -1363,7 +1363,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 
                     while(true)
                     {
-                        for(i = 0; i < 6; i++)
+                        for(i = 0; i < BUFFER_LENGTH; i++)
                             fin.get(buffer[i]);
                         buffer[i] = L'\0';
                         fin.get(ch);    // Tab Remover
@@ -1383,13 +1383,13 @@ void WM_Command(HWND hWnd, WPARAM wParam)
                                 link = link->next;
                                 continue;
                             }
-                            for(i = 0; i < 6; i++)
+                            for(i = 0; i < BUFFER_LENGTH; i++)
                             {
                                 if(buffer[i] != link->code[i])
                                     break;
                             }
 
-                            if(i != 6)
+                            if(i != BUFFER_LENGTH)
                             {
                                 link = link->next;
                                 continue;
