@@ -54,7 +54,7 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
         Loop_Lecture->code[BUFFER_LENGTH] = L'\0';
         fin.get(ch);    // \t remover
 
-        temp = new wchar_t[100];
+        temp = new wchar_t[TEMP_CHAR_SIZE];
 
         // ∞≠¡¬¿Ã∏ß
         fin.get(ch);

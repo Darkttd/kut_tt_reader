@@ -1405,7 +1405,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 
                                 wchar_t* temp2;
 
-                                int tempSize = 100;
+                                int tempSize = TEMP_CHAR_SIZE;
                                 temp = new wchar_t[tempSize];
                                 temp2 = new wchar_t[3];
 
@@ -1500,7 +1500,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
 
             wchar_t* temp2;
 
-            int tempSize = 100;
+            int tempSize = TEMP_CHAR_SIZE;
             temp = new wchar_t[tempSize];
             temp2 = new wchar_t[3];
 

@@ -112,6 +112,7 @@ const WCHAR CTName[CT_COUNT][13] = {L"(null)", L"전문교양핵심", L"전문교양일반",
                                 L"학과(전공)핵심", L"학과(전공)일반", L"(null)", L"자유선택",
                                 L"MSC핵심", L"MSC일반"};
 
+#define TEMP_CHAR_SIZE 100
 #define DAY_COUNT   6
 #define TT_COUNT    15
 #define MAX_TIME_COUNT 9
