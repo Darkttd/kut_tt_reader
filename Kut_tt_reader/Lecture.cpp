@@ -14,11 +14,17 @@ bool isnumber(wchar_t ch)
 
 int tonumber(wchar_t ch)
 {
+	if (ch < L'0' || ch > L'9')
+		_ASSERT(false);
+
     return int(ch) - int(L'0');
 }
 
 int tonumber(wchar_t ch, wchar_t ch2)
 {
+	if (ch < L'0' || ch > L'9' || ch2 < L'0' || ch2 > L'9')
+		_ASSERT(false);
+
     return (int(ch) - int(L'0')) * 10 + (int(ch2) - int(L'0'));
 }
 
@@ -301,16 +307,19 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
                 fin.get(ch3);
                 fin.get(dummy);
 
-                tmp = tonumber(ch, ch2) - 1;
-                tmp *= 2;
+                if (ch != L'\t' && ch2 != L'\t')
+                {
+                    tmp = tonumber(ch, ch2) - 1;
+                    tmp *= 2;
 
-                if(ch3 == 'B')
-                    tmp++;
+                    if (ch3 == 'B')
+                        tmp++;
 
-                if(tmp >= 24)
-                    tmp = 24;    // 13A 이상의 시간은 tovr로 저장
+                    if (tmp >= 24)
+                        tmp = 24;    // 13A 이상의 시간은 tovr로 저장
 
-                Loop_Lecture->time_info[to] = Loop_Lecture->time_info[to] | tt_inf[tmp];
+                    Loop_Lecture->time_info[to] = Loop_Lecture->time_info[to] | tt_inf[tmp];
+                }
 
                 if(dummy == L'\n')
                     break;
