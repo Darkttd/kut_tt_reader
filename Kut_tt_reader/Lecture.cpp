@@ -315,8 +315,8 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
                     if (ch3 == 'B')
                         tmp++;
 
-                    if (tmp >= 24)
-                        tmp = 24;    // 13A 이상의 시간은 tovr로 저장
+                    if (tmp >= STANDARD_SHOW_TIME)
+                        tmp = STANDARD_SHOW_TIME;    // 13A 이상의 시간은 tovr로 저장
 
                     Loop_Lecture->time_info[to] = Loop_Lecture->time_info[to] | tt_inf[tmp];
                 }

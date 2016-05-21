@@ -36,6 +36,7 @@ typedef int TIME_INFO;
 #define t12A    0x00400000
 #define t12B    0x00800000
 #define tovr_12 0x01000000
+#define STANDARD_SHOW_TIME 24
 
 #define IS_DAY_VALIED(day) (day & 0xFC000000)
 #define GET_ONLY_TIME(day) (day & 0x01FFFFFF)
