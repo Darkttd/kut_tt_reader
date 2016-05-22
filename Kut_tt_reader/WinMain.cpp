@@ -1291,14 +1291,14 @@ void WM_Command(HWND hWnd, WPARAM wParam)
                 {
                     LECTURE* lc = Iterator->GetLecture();
                     fout << lc->code;
-                    fout << L'\t';
+                    fout << wTab;
                     fout << wchar_t(lc->div_class / 10 + L'0');
                     fout << wchar_t(lc->div_class % 10 + L'0');
-                    fout << L'\t';
+                    fout << wTab;
                     fout << lc->teacher;
-                    fout << L'\t';
+                    fout << wTab;
                     fout << lc->name;
-                    fout << L'\n';
+                    fout << wNewLine;
 
                     Iterator = Iterator->GetNext();
                 }
@@ -1437,7 +1437,7 @@ void WM_Command(HWND hWnd, WPARAM wParam)
                             fin.get(ch);
                             if(fin.eof())
                                 break;
-                        }while(ch != L'\n');
+                        }while(ch != wNewLine);
                         if(fin.eof())
                             break;
                     }

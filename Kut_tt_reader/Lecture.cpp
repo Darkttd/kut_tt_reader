@@ -53,7 +53,7 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
         {
             fin.get(ch);
                 
-            if(ch == L'\n' || ch == L'\t')
+            if(ch == wNewLine || ch == wTab)
                 fin.get(ch);
             Loop_Lecture->code[i] = ch;
         }
@@ -71,7 +71,7 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
 
             i++;
             fin.get(ch);
-        }while(ch != L'\t');
+        }while(ch != wTab);
         temp[i] = L'\0';
 
         int lectureNameLen = wcslen(temp) + 1;
@@ -99,7 +99,7 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
         fin.get(ch);        // TAB REMOVER
 
         fin.get(ch);
-        if(ch != '\t')
+        if(ch != wTab)
             // ¿µ¾î°­ÁÂ
             Loop_Lecture->target_eng = ch;
 
@@ -109,44 +109,44 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
         for(i = 0; i < MAJOR_COUNT; i++)
         {
             fin.get(ch);
-            if(ch != L'\t')
+            if(ch != wTab)
             {
                 fin.get(ch2);
-                if(ch2 != L'\t')
+                if(ch2 != wTab)
                 {
                     fin.get(ch3);
-                    if(ch3 != L'\t')
+                    if(ch3 != wTab)
                     {
                         fin.get(dummy);
-                        if(dummy != L'\t')
+                        if(dummy != wTab)
                         {
                             fin.get(dummy);
-                            if(dummy != L'\t')
+                            if(dummy != wTab)
                                 fin.get(dummy);
                         }
                     }
                     else
-                        dummy = L'\t';
+                        dummy = wTab;
                 }
                 else
-                    ch3 = L'\t';
+                    ch3 = wTab;
             }
             else
             {
-                ch2 = L'\t';
-                ch3 = L'\t';
+                ch2 = wTab;
+                ch3 = wTab;
             }
 
-            if(ch != L'\t')
+            if(ch != wTab)
             {
-                if(ch2 != L'\t')
+                if(ch2 != wTab)
                 {
                     if(isnumber(ch2))
                     {
                         Loop_Lecture->major[i] = tonumber(ch, ch2);
                         if(Loop_Lecture->major[i] == CT_norm_dummy)
                             Loop_Lecture->major[i] = CT_norm_sel;
-                        if(ch3 != L'\t')
+                        if(ch3 != wTab)
                         {
                             if(ch3 == L'S')
                             {
@@ -190,10 +190,10 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
 
         temp = new wchar_t[200];
         fin.get(ch);
-        while(ch == L'\t' || ch == L'"')
+        while(ch == wTab || ch == L'"')
             fin.get(ch);
         i = 0;
-        while(ch != L'\t' && ch != L'"')
+        while(ch != wTab && ch != L'"')
         {
             temp[i] = ch;
 
@@ -218,7 +218,7 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
         if(ch == L'"')
             fin.get(ch);    // " remover
         i = 0;
-        while(ch != L'\t' && ch != L'"')
+        while(ch != wTab && ch != L'"')
         {
             temp[i] = ch;
 
@@ -245,13 +245,13 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
         {
             if(!fin.get(ch))
                 break;
-            if(ch == L'\t')
+            if(ch == wTab)
                 continue;
             if(ch == L'/')
                 continue;
             if(ch == L' ')
                 continue;
-            if(ch != L'\n')
+            if(ch != wNewLine)
             {
                 fin.get(dummy);
 
@@ -307,7 +307,7 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
                 fin.get(ch3);
                 fin.get(dummy);
 
-                if (ch != L'\t' && ch2 != L'\t')
+                if (ch != wTab && ch2 != wTab)
                 {
                     tmp = tonumber(ch, ch2) - 1;
                     tmp *= 2;
@@ -321,7 +321,7 @@ int LECTURE::Open_Lecture(const wchar_t* const Filename, LECTURE *Lecture)
                     Loop_Lecture->time_info[to] = Loop_Lecture->time_info[to] | tt_inf[tmp];
                 }
 
-                if(dummy == L'\n')
+                if(dummy == wNewLine)
                     break;
             }
             else

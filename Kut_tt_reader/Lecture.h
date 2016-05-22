@@ -3,6 +3,9 @@
 
 #include <windows.h>
 
+const wchar_t wTab = L'\t';
+const wchar_t wNewLine = L'\n';
+
 typedef unsigned short u_srt;
 typedef int TIME_INFO;
 #define MON     0x80000000
