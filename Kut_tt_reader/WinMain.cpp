@@ -20,7 +20,7 @@ void WM_Command(HWND hWnd, WPARAM wParam);
 
 HWND MainhWnd;
 
-const wchar_t * DAT_FILE_NAME = L"tt_data_131_0.dat";
+const wchar_t * const DAT_FILE_NAME = L"tt_data_131_0.dat";
 LECTURE *Lecture;
 SameList *List;
 MyLecture *SelectedList;
