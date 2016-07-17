@@ -6,8 +6,8 @@ using namespace std;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
-LPCWSTR IpszClass = L"2013년 1학기 한국기술교육대 시간표 도우미 v1.0 (예비수강신청용)";
-#define VERSION_YEAR 131
+LPCWSTR IpszClass = L"2016년 2학기 한국기술교육대 시간표 도우미 v1.0";
+#define VERSION_YEAR 162
 HBITMAP hBit;
 
 void WM_Create(HWND hWnd);
@@ -20,7 +20,7 @@ void WM_Command(HWND hWnd, WPARAM wParam);
 
 HWND MainhWnd;
 
-const wchar_t * const DAT_FILE_NAME = L"tt_data_131_0.dat";
+const wchar_t * const DAT_FILE_NAME = L"tt_data_162_0.dat";
 LECTURE *Lecture;
 SameList *List;
 MyLecture *SelectedList;
@@ -282,12 +282,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
             L"   기초로 작성된 버젼이며,\n"
             L"   정식수강신청용 공지가 올라오면 업데이트될 예정입니다."
             , L"시간표 제작 도우미", MB_OK);
-*/
+
         MessageBox(hWnd, L"2013년 1학기용 시간표 제작기 v1.0 (예비수강신청용) 입니다.\n"
             L"시간표를 제작한 뒤에\n변경 과목이 있는지 등을 체크해 주시기 바랍니다!\n\n"
             L"※ 이 버젼은 예비수강신청용으로, 해당 공지사항의 엑셀파일을\n"
             L"   기초로 작성된 버젼입니다."
             , L"시간표 제작 도우미", MB_OK);
+            */
+
+        MessageBox(hWnd, L"2016년 2학기용 시간표 제작기 v1.0 입니다.",
+            L"시간표 제작 도우미",
+            MB_OK);
+
         return 0;
 
     case WM_PAINT:

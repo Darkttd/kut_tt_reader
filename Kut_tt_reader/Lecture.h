@@ -52,7 +52,7 @@ const int tt_inf[TI_COUNT] = {t01A, t01B, t02A, t02B, t03A, t03B, t04A, t04B, t0
 
 //2013년도 1학기용으로 2012년 12월 17일 오후 10시 기준 공지사항에 올라온 xls 파일 기준
 
-#define MAJOR_COUNT 30
+#define MAJOR_COUNT 21
 
 const WCHAR MajorName[MAJOR_COUNT][12] = {
                             L"자동차ㆍ에너지전공",
@@ -64,21 +64,12 @@ const WCHAR MajorName[MAJOR_COUNT][12] = {
                             L"전기공학전공",
                             L"전자공학전공",
                             L"정보통신공학전공",
-                            L"전기공학전공",
-                            L"전자공학전공",
-                            L"정보통신공학전공",
-                            L"컴퓨터공학전공",
                             L"컴퓨터HW전공",
                             L"컴퓨터SW전공",
                             L"컴퓨터시스템응용전공",
-                            L"멀티미디어전공",
-                            L"인터넷공학전공",
-                            L"정보보호공학전공",
                             L"신소재공학전공",
                             L"응용화학공학전공",
                             L"에너지공학전공",
-                            L"신소재공학과",
-                            L"응용화학공학과",
                             L"디자인공학과",
                             L"건축공학전공",
                             L"건축학전공",
@@ -91,15 +82,15 @@ const WCHAR MajorName[MAJOR_COUNT][12] = {
 ////////////////////////////////////////// 읽어들이면서 일반선택은 11에서 12로 변환하도록 한다
 #define CT_COUNT        15
 
-#define CT_sp_cul_req   01    // 전문교양필수
-#define CT_sp_cul_sel   02    // 전문교양선택
-#define CT_HRD_req      03    // HRD필수
-#define CT_HRD_sel      04    // HRD선택
-#define CT_tech_req 05  // 공학기초필수
-#define CT_tech_sel 06  // 공학기초선택
-#define CT_depart_req   07    // 학부필수 
-#define CT_depart_sel   08    // 학부선택
-#define CT_major_req    09    // 전공필수
+#define CT_sp_cul_req   1    // 전문교양필수
+#define CT_sp_cul_sel   2    // 전문교양선택
+#define CT_HRD_req      3    // HRD필수
+#define CT_HRD_sel      4    // HRD선택
+#define CT_tech_req 5  // 공학기초필수
+#define CT_tech_sel 6  // 공학기초선택
+#define CT_depart_req   7    // 학부필수 
+#define CT_depart_sel   8    // 학부선택
+#define CT_major_req    9    // 전공필수
 #define CT_major_sel    10    // 전공선택
 //#define CT_norm_sel   11    // 일반선택(*)
 #define CT_norm_dummy   11    
