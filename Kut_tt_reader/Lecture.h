@@ -50,8 +50,6 @@ const int tt_inf[TI_COUNT] = {t01A, t01B, t02A, t02B, t03A, t03B, t04A, t04B, t0
                                 t06A, t06B, t07A, t07B, t08A, t08B, t09A, t09B, t10A, t10B,
                                 t11A, t11B, t12A, t12B, tovr_12};
 
-//2013년도 1학기용으로 2012년 12월 17일 오후 10시 기준 공지사항에 올라온 xls 파일 기준
-
 #define MAJOR_COUNT 21
 
 const WCHAR MajorName[MAJOR_COUNT][12] = {
@@ -82,21 +80,21 @@ const WCHAR MajorName[MAJOR_COUNT][12] = {
 ////////////////////////////////////////// 읽어들이면서 일반선택은 11에서 12로 변환하도록 한다
 #define CT_COUNT        15
 
-#define CT_sp_cul_req   1    // 전문교양필수
-#define CT_sp_cul_sel   2    // 전문교양선택
-#define CT_HRD_req      3    // HRD필수
-#define CT_HRD_sel      4    // HRD선택
-#define CT_tech_req 5  // 공학기초필수
-#define CT_tech_sel 6  // 공학기초선택
-#define CT_depart_req   7    // 학부필수 
-#define CT_depart_sel   8    // 학부선택
-#define CT_major_req    9    // 전공필수
-#define CT_major_sel    10    // 전공선택
-//#define CT_norm_sel   11    // 일반선택(*)
+#define CT_sp_cul_req   1    // 전문교양핵심
+#define CT_sp_cul_sel   2    // 전문교양일반
+#define CT_HRD_req      3    // HRD핵심
+#define CT_HRD_sel      4    // HRD일반
+#define CT_tech_req 5  // 공학기초핵심
+#define CT_tech_sel 6  // 공학기초일반
+#define CT_depart_req   7    // 학부공통핵심 
+#define CT_depart_sel   8    // 학부공통일반
+#define CT_major_req    9    // 학과(전공)핵심
+#define CT_major_sel    10    // 학과(전공)일반
+//#define CT_norm_sel   11    // 자유선택(*)
 #define CT_norm_dummy   11    
-#define CT_norm_sel 12    // 일반선택
-#define CT_MSC_req      13    // MSC필수
-#define CT_MSC_sel      14    // MSC선택 
+#define CT_norm_sel 12    // 자유선택
+#define CT_MSC_req      13    // MSC핵심
+#define CT_MSC_sel      14    // MSC일반 
 #define CT_MULTI_UNMAJOR    0x80000000  // ‘부/복’은 복수/부전공해당과목으로 S로 표시
 #define CT_MDTEACHER_LECTURE    0x40000000 // T는 중등교직과목임.
 
